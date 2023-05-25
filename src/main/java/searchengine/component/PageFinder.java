@@ -1,4 +1,4 @@
-package searchengine.page;
+package searchengine.component;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +10,6 @@ import searchengine.model.Page;
 import searchengine.model.SitePage;
 import searchengine.repository.PageRepository;
 import searchengine.repository.SiteRepository;
-import searchengine.services.LemmaHandler;
 import searchengine.services.LemmaService;
 
 import java.sql.Timestamp;

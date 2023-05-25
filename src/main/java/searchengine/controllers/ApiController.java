@@ -10,7 +10,6 @@ import searchengine.config.SitesList;
 import searchengine.dto.SearchResults;
 import searchengine.dto.statistics.StatisticsResponse;
 import searchengine.services.IndexingService;
-import searchengine.services.LemmaService;
 import searchengine.services.SearchService;
 import searchengine.services.StatisticsService;
 
@@ -24,8 +23,7 @@ public class ApiController {
 
     private final StatisticsService statisticsService;
     private final IndexingService indexingService;
-    private final LemmaService lemmaService;
-    private final SearchService searchService;
+    private final SearchService searchServiceImpl;
     private final SitesList sitesList;
 
     @GetMapping("/search")
@@ -33,7 +31,7 @@ public class ApiController {
                                 String request, @RequestParam(name = "site", required = false, defaultValue = "") String site,
                                 @RequestParam(name = "offset", required = false, defaultValue = "0") int offset,
                                 @RequestParam(name = "limit", required = false, defaultValue = "20") int limit) throws IOException {
-        return searchService.search(request, site, offset, limit);
+        return searchServiceImpl.search(request, site, offset, limit);
     }
 
 
@@ -54,6 +52,6 @@ public class ApiController {
 
     @GetMapping("/indexPage")
     public ResponseEntity indexPage(@RequestParam URL url) throws IOException {
-        return lemmaService.findLemmas(sitesList, url);
+        return indexingService.findLemmas(sitesList, url);
     }
 }

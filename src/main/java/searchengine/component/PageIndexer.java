@@ -1,18 +1,15 @@
-package searchengine.page;
+package searchengine.component;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import searchengine.model.IndexSearch;
 import searchengine.model.Lemma;
 import searchengine.model.Page;
 import searchengine.repository.IndexSearchRepository;
 import searchengine.repository.LemmaRepository;
-import searchengine.services.LemmaHandler;
-import searchengine.services.LemmaService;
 
 import java.io.IOException;
 import java.util.Map;
@@ -32,9 +29,7 @@ public class PageIndexer {
             lemmas.entrySet().parallelStream().forEach(entry -> {
                 saveLemma(entry.getKey(),entry.getValue(),indexingPage);
             });
-//            lemmas.forEach((k, v) -> {
-//                saveLemma(k,v,indexingPage);
-//            });
+
             log.warn("Индексация страницы " + (System.currentTimeMillis() - start) + " lemmas:" + lemmas.size());
         } catch (DataIntegrityViolationException e) {
             log.error("Ошибка сохранения леммы: ", e);
